@@ -1,0 +1,75 @@
+{% extends 'index.html'%}
+{% load static%}
+{% block content %}
+
+<link rel = "stylesheet" a href ="{% static 'css/style.css'%}">
+  <h5>WELCOME.....!!</h5>
+  <div class="container-fluid names" style ="margin-top:60px;  margin-bottom:100px;">
+    <div class="col offset-md-4 col-md-3">
+        <h3 class="page-header text-primary text-center">
+            <span class="fas fa-cloud-sun" id =yellow></span>
+                   DJANGO--weather(Application)
+        </h3>  
+        
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error'%}
+                <div class ="alert alert-danger">
+                    {{message}}
+                </div>
+            {% else%}
+                <div class ="alert alert-{{message.tags}}">
+                    {{ message }}  
+                </div>
+            {% endif%}  
+        {% endfor %}   
+        {% endif %} 
+
+
+        <form method ="POST" class="thiru1">
+            {% csrf_token%}    
+            <div class="input-group">
+                {{form.name}}
+                <span class="input-group-btn">
+                <button class="btn-btn-primary thiru" type ="submit">
+                    <span class ="fa fa-flag"></span>
+                    Add city
+                </button>
+            </span>
+            </div>
+        </form> 
+        
+        {% for city_weather in data %}
+            <div class ="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png" class ="media-object" alt="Images">
+                    </a> 
+                </div>
+                    <div class="media-body">
+                        <h2 class="media-heading"><b>{{city_weather.city}}</b></h2>
+                        <h5>Temperature:{{city_weather.temperature}}&deg;C</h5>
+                        <h5>Max:{{city_weather.max}}</h5>
+                        <h5>Min:{{city_weather.min}}</h5>
+                        <h5>Pressure:{{city_weather.pressure}}</h5>
+                        <h5>Humidity:{{city_weather.humidity}}</h5>
+                        <h6>Sunrise:{{city_weather.sunrise}}</h6>
+                        <h6>Sunset:{{city_weather.sunset}}</h6>
+                        <h6>Country:{{city_weather.country}}</h6>
+                        <h6>Description:{{city_weather.description}}</h6>
+                        <h6>{{city_weather.icon}}</h6>
+                    </div> 
+                    <div class="media-right">
+                        <h3><a href="{% url 'delete' city_weather.city %}" style= "text-decoration:none;" class="text-danger">&#x2718;</a>
+                        </h3>
+                    </div>       
+                </div>
+                {% endfor%}      
+
+
+
+
+    </div>
+  </div>
+
+{% endblock content %}

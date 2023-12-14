@@ -1,0 +1,30 @@
+{% include 'header.html'%}
+<html>
+    <head>
+        <title> weather app</title>
+    </head>  
+    
+    <body>
+        {%block content%}
+
+
+        {%endblock content%} 
+
+
+
+    </body>
+    
+</html>  
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var alertElement = document.querySelector(".alert");
+        
+        if (alertElement) {
+            setTimeout(function() {
+                alertElement.style.display = "none";
+            }, 2000);
+        }
+    });
+    
+</script>
